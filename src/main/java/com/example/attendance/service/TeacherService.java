@@ -8,7 +8,7 @@ import com.example.attendance.repository.TeacherProfileRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections; // ✅ ADD THIS
+import java.util.Collections; // ✅ keep this
 
 @Service
 public class TeacherService {
@@ -44,8 +44,8 @@ public class TeacherService {
         t.setName(req.getName());
         t.setGender(req.getGender());
 
-        // 🚨 TEMP FIX: Disable subjects saving (avoids teacher_subjects table)
-        t.setSubjects(Collections.emptyList());
+        // ✅ TEMP FIX: Disable subjects saving (Set version)
+        t.setSubjects(Collections.emptySet());
 
         t.setPhoneNumber(req.getPhoneNumber());
         t.setIdNumber(req.getIdNumber());
