@@ -8,11 +8,8 @@ import com.example.attendance.repository.TeacherProfileRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
-
 @Service
 public class TeacherService {
-
     private final UserService userService;
     private final TeacherProfileRepository teacherRepo;
 
@@ -23,30 +20,18 @@ public class TeacherService {
 
     @Transactional
     public TeacherProfile createTeacher(TeacherCreateRequest req) {
-
         if (userService.exists(req.getGmailId())) {
-            throw new IllegalArgumentException(
-                "Username already exists: " + req.getGmailId()
-            );
+            throw new IllegalArgumentException("Username already exists: " + req.getGmailId());
         }
-
-        User user = userService.createUser(
-            req.getGmailId(),
-            req.getPassword(),
-            UserRole.TEACHER
-        );
+        User user = userService.createUser(req.getGmailId(), req.getPassword(), UserRole.TEACHER);
 
         TeacherProfile t = new TeacherProfile();
         t.setUser(user);
         t.setName(req.getName());
         t.setGender(req.getGender());
-
-        // ✅ TEMP FIX: satisfy @NotEmpty validation
-        t.setSubjects(Collections.singleton("TEMP"));
-
+        t.setSubjects(req.getSubjects());
         t.setPhoneNumber(req.getPhoneNumber());
         t.setIdNumber(req.getIdNumber());
-
         return teacherRepo.save(t);
     }
 }
