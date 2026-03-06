@@ -16,7 +16,8 @@ public class CorsConfig {
                 registry.addMapping("/**") // allow all endpoints
                         .allowedOrigins(
                                 "http://localhost:3000",  // for local dev
-                                "https://v1attendance-frontend-f84h.vercel.app" // for deployed frontend
+                                "https://v1attendance-frontend-f84h.vercel.app", // for deployed frontend
+                            "https://v1attendance-frontend.vercel.app/login"
                         )
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
