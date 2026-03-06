@@ -13,14 +13,16 @@ public class CorsConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**") // allow all endpoints
-                        .allowedOrigins(
-                                "http://localhost:3000",  // for local dev
-                                "https://v1attendance-frontend-f84h.vercel.app", // for deployed frontend
-                            "https://v1attendance-frontend.vercel.app/login"
+                registry.addMapping("/**")
+                        .allowedOriginPatterns(
+                                "http://localhost:3000",
+                                "https://v1attendance-frontend.vercel.app",
+                                "https://v1attendance-frontend-f84h.vercel.app",
+                                "https://*.vercel.app"
                         )
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")
                         .allowedHeaders("*")
+                        .exposedHeaders("Authorization")
                         .allowCredentials(true);
             }
         };
